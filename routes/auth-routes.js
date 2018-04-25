@@ -10,7 +10,7 @@ const User = require('../models/user-model');
  * if it's valid makes another request to get the user data from
  * the google api.
  */
-router.get('/login', (req, res)=> {
+router.get('/login', (req, res) => {
     console.log("Here: ", req.session);
     verifyToken(req.query.access_token).then(data => {
 

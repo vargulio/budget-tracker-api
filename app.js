@@ -1,8 +1,10 @@
 const express = require('express');
 const authRoutes = require('./routes/auth-routes');
+const transactionRoutes = require('./routes/transactions-routes');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
 
 
 const app = express();
@@ -17,6 +19,10 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use(bodyParser.urlencoded());
+
+app.use(bodyParser.json());
+
 app.use(cookieSession({
     name: 'biscuit',
     keys: ['superSecretniqStringKoitoNikojNqmaDaOtgatne'],
@@ -30,6 +36,7 @@ mongoose.connect(keys.mongodb.dbURI, ()=> {
 });
 
 app.use(authRoutes);
+app.use(transactionRoutes);
 
 app.listen(3000, () => {
     console.log('App listening on port 3000');
