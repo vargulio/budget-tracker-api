@@ -1,18 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const transactionValidationSchema = require('./validation/transaction.schema');
 
-const transactionSchema = new Schema({
-    userId: String,
-    amount: Number,
-    description: String,
-    repetetive: Boolean,
-    repeatInterval: Number,
-    category: {
-        type: String,
-        enum: ['0','1','2','3','4','5','6','7'],
-        default: '0'
-    }
-});
+const transactionSchema = new Schema(transactionValidationSchema);
 
 const Transaction = mongoose.model('transactions',transactionSchema);
 

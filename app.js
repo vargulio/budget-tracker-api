@@ -35,8 +35,8 @@ mongoose.connect(keys.mongodb.dbURI, ()=> {
     console.log('connected to mongo db');
 });
 
-app.use(authRoutes);
 app.use(transactionRoutes);
+app.use(authRoutes);
 
 app.listen(3000, () => {
     console.log('App listening on port 3000');
