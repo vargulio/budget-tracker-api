@@ -27,7 +27,7 @@ router.post('/addTransaction', checkSchema(transactionValidationSchema), (req, r
 });
 
 router.get('/validationSchema', (req, res) => {
-    res.send({});
+    res.send(transactionValidationSchema);
 });
 
 module.exports = router;
