@@ -1,32 +1,33 @@
 const router = require('express').Router();
-const Transaction = require('../models/transaction');
-const transactionSchema = require('../models/validation/transaction.schema');
+const Transaction = require('../models/transaction/transaction');
+const {checkSchema} = require('express-validator/check');
+const transactionValidationSchema = require('../models/transaction/transaction.validationSchema');
 
-router.post('/addTransaction', (req, res)=> {
-    if (req.session && req.session.id) {
-        console.log("Request: ",req.body);
+
+router.post('/addTransaction', checkSchema(transactionValidationSchema), (req, res) => {
+    console.log('Here: ', req.validationErrors());
+    if (req.session && req.session.id && !req.validationErrors()) {
         new Transaction({
-            userId: 'bahur',
-            amount: 10,
-            description: 'Poharchih 10 kinta za nishto,',
-            repetetive: true,
-            repeatInterval: 0,
-            category: '12'
+            userId: req.body.userId,
+            amount: req.body.amount,
+            description: req.body.description,
+            repetetive: req.body.repetetive,
+            repeatInterval: req.body.repeatInterval,
+            category: req.body.category
         }).save().then(newTransaction => {
             res.send(newTransaction);
         }).catch(error => {
             res.status(400);
             res.send(error);
         });
-        console.log('Mainata ti');
     } else {
         res.status(400);
-        res.send({})
+        res.send(req.validationErrors());
     }
 });
 
-router.get('/validationSchema',(req,res) => {
-    res.send(transactionSchema);
+router.get('/validationSchema', (req, res) => {
+    res.send({});
 });
 
 module.exports = router;

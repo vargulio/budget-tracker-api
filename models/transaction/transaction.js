@@ -1,4 +1,7 @@
-module.exports = {
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const transactionSchema = new Schema({
     userId: {
         type: String,
         required: true
@@ -29,4 +32,8 @@ module.exports = {
         default: '0',
         required: true
     }
-}
+});
+
+const Transaction = mongoose.model('transactions', transactionSchema);
+
+module.exports = Transaction;

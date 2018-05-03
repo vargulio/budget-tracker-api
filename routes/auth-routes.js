@@ -2,7 +2,7 @@ const router = require('express').Router();
 const verifyToken = require('../authenticate/verify_token');
 const httpService = require('../shared/http-service');
 const urls = require('../config/urls');
-const User = require('../models/user-model');
+const User = require('../models/user/user-model');
 
 /**
  * This endpoint waits for a token as a get parameter in the request

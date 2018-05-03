@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
-
+const expressValidator = require('express-validator');
 
 const app = express();
 
@@ -22,6 +22,8 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded());
 
 app.use(bodyParser.json());
+app.use(expressValidator());
+
 
 app.use(cookieSession({
     name: 'biscuit',
@@ -34,6 +36,7 @@ app.use(cookieSession({
 mongoose.connect(keys.mongodb.dbURI, ()=> {
     console.log('connected to mongo db');
 });
+
 
 app.use(transactionRoutes);
 app.use(authRoutes);
