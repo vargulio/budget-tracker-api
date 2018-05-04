@@ -26,6 +26,12 @@ const transactionSchema = new Schema({
         min: 0,
 
     },
+    startingDate: {
+        type: String,
+        required: function () {
+            return this.repetetive;
+        }
+    },
     category: {
         type: String,
         enum: ['0', '1', '2', '3', '4', '5', '6', '7'],

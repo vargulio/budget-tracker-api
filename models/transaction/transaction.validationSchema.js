@@ -14,7 +14,8 @@ module.exports = {
         isString: true,
         isLength: {
             options: {
-                max: 256
+                min: 20,
+                max: 144
             }
         }
     },
@@ -32,10 +33,19 @@ module.exports = {
         in: ['body'],
 
     },
-    category: {
+    startingDate: {
         in: ['body'],
         isString: true,
-        isIn: {options: [['0', '1', '2', '3', '4', '5', '6', '7']]},
+        custom: {
+            options: (value, {req, location, path}) => {
+               return ((req.body.repetetive && /[0-9]{4}-[0-1][0-9]-[0-3][0-9]/.test(value)) || !req.body.repetetive);
+            }
+        }
+    },
+    category: {
+        in: ['body'],
+        isInt: true,
+        isIn: {options: [[0, 1, 2, 3, 4, 5, 6]]},
         exists: true
     }
 };
