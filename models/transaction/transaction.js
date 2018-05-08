@@ -37,6 +37,10 @@ const transactionSchema = new Schema({
         enum: ['0', '1', '2', '3', '4', '5', '6', '7'],
         default: '0',
         required: true
+    },
+    creationDate: {
+        type: Date,
+        required: true
     }
 });
 

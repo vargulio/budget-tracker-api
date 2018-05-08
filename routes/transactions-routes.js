@@ -14,7 +14,9 @@ router.post('/addTransaction', checkSchema(transactionValidationSchema), (req, r
             description: req.body.description,
             repetetive: req.body.repetetive,
             repeatInterval: req.body.repeatInterval,
-            category: req.body.category
+            category: req.body.category,
+            startingDate: new Date(req.body.startingDate),
+            creationDate: new Date()
         }).save().then(newTransaction => {
             res.send(newTransaction);
         }).catch(error => {

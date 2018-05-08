@@ -7,6 +7,18 @@ const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 
+const { fork } = require('child_process');
+
+const forked = fork('./transactions/transactions-watcher.js');
+
+forked.on('message', (msg) => {
+    console.log('Message from child', msg);
+});
+
+
+forked.send({ hello: 'world' });
+
+
 const app = express();
 
 /**
@@ -31,6 +43,7 @@ app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
     httpOnly: false
 }));
+
 
 
 mongoose.connect(keys.mongodb.dbURI, ()=> {
